@@ -8,6 +8,7 @@ package homework_scheduler;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -64,7 +65,6 @@ public class Homework_Scheduler {
     }
 
     public String organizeToWorks(String in) {
-        int marker=0;
         ArrayList<String> works = new ArrayList();
         StringBuilder currWork = new StringBuilder();
         Pattern first = Pattern.compile("\n");
@@ -73,6 +73,7 @@ public class Homework_Scheduler {
         {
             String line = lines[i];
             if (line.matches(".+\\(\\d\\):.+")) {
+                works.add(currWork.toString());
                 System.out.println(line);
                 currWork = new StringBuilder(line);
             }
@@ -80,7 +81,7 @@ public class Homework_Scheduler {
                 currWork.append(line);
             }
         }
-
+        System.out.println(Arrays.toString(works.toArray()));
         return "";
     }
 
@@ -94,46 +95,20 @@ public class Homework_Scheduler {
     }
 
     public String input() {
-//        File file = new File("input.txt");
+        File file = new File("input.txt");
         StringBuilder input = new StringBuilder();
-//        try (Scanner in = new Scanner(file)) {
-        String asdf = "Monday - January 4, 2016\n"
-                + "\n"
-                + "ADVANCED BIOLOGY (H) AP/IB (2): Dr. HF this week Speciation & Macroevolution\n"
-                + "(p 2)\n"
-                + "Read Chapter 20,21,24,25\n"
-                + "\n"
-                + "HISTORY OF THE AMERICAS (H) IB (3): Historical Investigation Debrief\n"
-                + "(p 3)\n"
-                + "Optional Final Draft Revision\n"
-                + "\n"
-                + "FRENCH IV (H) IB (1): listening RTL\n"
-                + "(p 1)\n"
-                + "\n"
-                + "PHYSICS (H) IB (4): problems/lab\n"
-                + "(p 4)\n"
-                + "\n"
-                + "CALCULUS BC (H) AP/IB (5): Review Day\n"
-                + "(p 5)\n"
-                + "518: 3,4,6,7,9,10,14,15,17,21,24,73\n"
-                + "\n"
-                + "WORLD LITERATURE (H) AP/IB (7): The Stranger - personal reflection statements due. Single grade.\n"
-                + "(p 7)\n"
-                + "Homework - Please read carefully The Stranger, Part I, Ch. 1-3. Journal due - a) IO connection, b) analysis of language or imagery, c) reading guide topics or d) reader response";
-        
-        try (Scanner in = new Scanner(asdf)){ 
+        try (Scanner in = new Scanner(file)) {       
             while (in.hasNextLine()) {
                 String i = in.nextLine();
                 input.append(i);
                 input.append("\n");
             }
-//        } catch (FileNotFoundException exception) {
-//            System.out.println("File not found");
+        } catch (FileNotFoundException exception) {
+            System.out.println("File not found");
         } catch (StringIndexOutOfBoundsException exception) {
             System.out.println("there was index out of bounds");
         }
 
-//        System.out.print(input);
         return input.toString();
     }
 
