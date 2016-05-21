@@ -8,6 +8,7 @@ package homework_scheduler;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -24,8 +25,9 @@ public class Homework_Scheduler {
     ArrayList<String> classes = new ArrayList(7);
     static String ending;
     String workingBlockString;
-    final static Pattern okBlocks = Pattern.compile("(1|2|3|4|5|6|7)");
-
+    final static Pattern okBlocks = Pattern.compile("\\((1|2|3|4|5|6|7|8)\\)");
+    final static Pattern okPeriods = Pattern.compile("\\(p (1|2|3|4|5|6|7|8)\\)");
+    final static Pattern honors = Pattern.compile("\\(H\\)");
     public static void main(String[] args) {
         Homework_Scheduler m = new Homework_Scheduler();
 //        m.organize();
@@ -60,27 +62,29 @@ public class Homework_Scheduler {
                 + "powered by finalsite\n"
                 + " Account: Justin Lee  Portal  Groups Dashboard  Bookmarks  Logoff ";
         m.workingBlockString = trim(m.input());
-
+        m.organizeToWorks();
     }
 
-    public String organizeToWorks(String in) {
-        int marker=0;
-        ArrayList<String> works = new ArrayList();
-        StringBuilder currWork = new StringBuilder();
+    public String organizeToWorks() {
+        String in = this.workingBlockString;
+        ArrayList<work> works = new ArrayList();
+        work currWork;
         Pattern first = Pattern.compile("\n");
         String[] lines = first.split(in);
-        for (int i = 0; i < lines.length; i++) //            System.out.println(line);
+        Matcher lineHonors;
+
+        for (int i = 0; i < lines.length; i++) 
         {
             String line = lines[i];
+//            works.add(line);
             if (line.matches(".+\\(\\d\\):.+")) {
-                System.out.println(line);
-                currWork = new StringBuilder(line);
+                lineHonors = honors.matcher(line);
+                currWork = new work(line.substring(0, line.indexOf(":")-4));
+                currWork.setBlocknum(Integer.parseInt(line.substring(line.indexOf(":")-2,line.indexOf(":")-1)));
             }
-            else{
-                currWork.append(line);
-            }
-        }
 
+        }
+//        System.err.println(Arrays.toString(works.toArray()));
         return "";
     }
 
@@ -94,46 +98,20 @@ public class Homework_Scheduler {
     }
 
     public String input() {
-//        File file = new File("input.txt");
+        File file = new File("input.txt");
         StringBuilder input = new StringBuilder();
-//        try (Scanner in = new Scanner(file)) {
-        String asdf = "Monday - January 4, 2016\n"
-                + "\n"
-                + "ADVANCED BIOLOGY (H) AP/IB (2): Dr. HF this week Speciation & Macroevolution\n"
-                + "(p 2)\n"
-                + "Read Chapter 20,21,24,25\n"
-                + "\n"
-                + "HISTORY OF THE AMERICAS (H) IB (3): Historical Investigation Debrief\n"
-                + "(p 3)\n"
-                + "Optional Final Draft Revision\n"
-                + "\n"
-                + "FRENCH IV (H) IB (1): listening RTL\n"
-                + "(p 1)\n"
-                + "\n"
-                + "PHYSICS (H) IB (4): problems/lab\n"
-                + "(p 4)\n"
-                + "\n"
-                + "CALCULUS BC (H) AP/IB (5): Review Day\n"
-                + "(p 5)\n"
-                + "518: 3,4,6,7,9,10,14,15,17,21,24,73\n"
-                + "\n"
-                + "WORLD LITERATURE (H) AP/IB (7): The Stranger - personal reflection statements due. Single grade.\n"
-                + "(p 7)\n"
-                + "Homework - Please read carefully The Stranger, Part I, Ch. 1-3. Journal due - a) IO connection, b) analysis of language or imagery, c) reading guide topics or d) reader response";
-        
-        try (Scanner in = new Scanner(asdf)){ 
+        try (Scanner in = new Scanner(file)) {       
             while (in.hasNextLine()) {
                 String i = in.nextLine();
                 input.append(i);
                 input.append("\n");
             }
-//        } catch (FileNotFoundException exception) {
-//            System.out.println("File not found");
+        } catch (FileNotFoundException exception) {
+            System.out.println("File not found");
         } catch (StringIndexOutOfBoundsException exception) {
             System.out.println("there was index out of bounds");
         }
 
-//        System.out.print(input);
         return input.toString();
     }
 
