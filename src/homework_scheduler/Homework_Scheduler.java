@@ -25,8 +25,8 @@ public class Homework_Scheduler {
     ArrayList<String> classes = new ArrayList(7);
     static String ending;
     String workingBlockString;
-    final static Pattern okBlocks = Pattern.compile("(1|2|3|4|5|6|7)");
-
+    final static Pattern okBlocks = Pattern.compile("\\((1|2|3|4|5|6|7|8)\\)");
+    final static Pattern okPeriods = Pattern.compile("\\(p (1|2|3|4|5|6|7|8)\\)");
     public static void main(String[] args) {
         Homework_Scheduler m = new Homework_Scheduler();
 //        m.organize();
@@ -61,27 +61,28 @@ public class Homework_Scheduler {
                 + "powered by finalsite\n"
                 + " Account: Justin Lee  Portal  Groups Dashboard  Bookmarks  Logoff ";
         m.workingBlockString = trim(m.input());
-
+        m.organizeToWorks();
     }
 
-    public String organizeToWorks(String in) {
-        ArrayList<String> works = new ArrayList();
-        StringBuilder currWork = new StringBuilder();
+    public String organizeToWorks() {
+        String in = this.workingBlockString;
+        ArrayList<work> works = new ArrayList();
+        work currWork;
         Pattern first = Pattern.compile("\n");
         String[] lines = first.split(in);
-        for (int i = 0; i < lines.length; i++) //            System.out.println(line);
+        
+        for (int i = 0; i < lines.length; i++) 
         {
             String line = lines[i];
+//            works.add(line);
             if (line.matches(".+\\(\\d\\):.+")) {
-                works.add(currWork.toString());
-                System.out.println(line);
-                currWork = new StringBuilder(line);
+                
+                currWork = new work(line.substring(0, line.indexOf(":")-4));
+                currWork.setBlocknum(Integer.parseInt(line.substring(line.indexOf(":")-2,line.indexOf(":")-1)));
             }
-            else{
-                currWork.append(line);
-            }
+
         }
-        System.out.println(Arrays.toString(works.toArray()));
+//        System.err.println(Arrays.toString(works.toArray()));
         return "";
     }
 
