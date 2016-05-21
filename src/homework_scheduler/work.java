@@ -15,6 +15,9 @@ public class work {
     private int blocknum;
     private String inClass;
     private String outClass;
+    private boolean honors;
+    private boolean ap;
+    private boolean ib;
 
     public work(String classname, int blocknum) {
         this.classname = classname;
@@ -34,14 +37,6 @@ public class work {
 
     public void setClassname(String classname) {
         this.classname = classname;
-    }
-
-    public String getBlock() {
-        return block;
-    }
-
-    public void setBlock(String block) {
-        this.block = block;
     }
 
     public int getBlocknum() {
@@ -70,6 +65,31 @@ public class work {
 
     @Override
     public String toString() {
-        return "work{" + "block=" + block + ", classname=" + classname + ", blocknum=" + blocknum + ", inClass=" + inClass + ", outClass=" + outClass + '}';
+        return "work{" + "classname=" + classname + ", blocknum=" + blocknum + ", inClass=" + inClass + ", outClass=" + outClass + ", honors=" + honors + ", ap=" + ap + ", ib=" + ib + '}';
+    }
+
+
+    public boolean isHonors() {
+        return honors;
+    }
+
+    public void setHonors(boolean honors) {
+        this.honors = honors;
+    }
+
+    public boolean isAp() {
+        return ap;
+    }
+
+    public void setAp(boolean ap) {
+        this.ap = ap;
+    }
+
+    public boolean isIb() {
+        return ib;
+    }
+
+    public void setIb(boolean ib) {
+        this.ib = ib;
     }
 }

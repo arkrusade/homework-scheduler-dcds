@@ -27,6 +27,7 @@ public class Homework_Scheduler {
     String workingBlockString;
     final static Pattern okBlocks = Pattern.compile("\\((1|2|3|4|5|6|7|8)\\)");
     final static Pattern okPeriods = Pattern.compile("\\(p (1|2|3|4|5|6|7|8)\\)");
+    final static Pattern honors = Pattern.compile("\\(H\\)");
     public static void main(String[] args) {
         Homework_Scheduler m = new Homework_Scheduler();
 //        m.organize();
@@ -70,13 +71,14 @@ public class Homework_Scheduler {
         work currWork;
         Pattern first = Pattern.compile("\n");
         String[] lines = first.split(in);
-        
+        Matcher lineHonors;
+
         for (int i = 0; i < lines.length; i++) 
         {
             String line = lines[i];
 //            works.add(line);
             if (line.matches(".+\\(\\d\\):.+")) {
-                
+                lineHonors = honors.matcher(line);
                 currWork = new work(line.substring(0, line.indexOf(":")-4));
                 currWork.setBlocknum(Integer.parseInt(line.substring(line.indexOf(":")-2,line.indexOf(":")-1)));
             }
