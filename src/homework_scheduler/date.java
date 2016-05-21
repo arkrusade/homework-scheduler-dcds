@@ -21,8 +21,38 @@ public class date {
         if (m == "January"){
             month = 1;
         }
-         if (m == "January"){
-            month = 1;
+         if (m == "Febuary"){
+            month = 2;
+        }
+         if (m == "March"){
+            month = 3;
+        }
+         if (m == "April"){
+            month = 4;
+        }
+          if (m == "May"){
+            month = 5;
+        }
+         if (m == "June"){
+            month = 6;
+        }
+         if (m == "July"){
+            month = 7;
+        }
+         if (m == "August"){
+            month = 8;
+        }
+          if (m == "September"){
+            month = 9;
+        }
+         if (m == "October"){
+            month = 10;
+        }
+         if (m == "November"){
+            month = 11;
+        }
+         if (m == "December"){
+            month = 12;
         }
     }
 }
