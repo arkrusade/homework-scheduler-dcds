@@ -1,1 +1,1 @@
-i have no idea what im doing
+i have some idea what im doing
