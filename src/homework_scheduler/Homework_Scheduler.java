@@ -26,13 +26,10 @@ public class Homework_Scheduler {
      */
     ArrayList<String> classes = new ArrayList(7);
     String workingBlockString;
-    final static Pattern okBlocks = Pattern.compile("\\((1|2|3|4|5|6|7|8)\\)");
-    final static Pattern okPeriods = Pattern.compile("\\(p (1|2|3|4|5|6|7|8)\\)");
     final static Pattern honors = Pattern.compile("\\(H\\)");
 
     public static void main(String[] args) {
         Homework_Scheduler m = new Homework_Scheduler();
-//        m.organize();
         m.workingBlockString = trim(m.input());
         m.organizeToWorks();
     }
@@ -61,7 +58,7 @@ public class Homework_Scheduler {
             }
 
         }
-//        System.err.println(Arrays.toString(works.toArray()));
+//        System.out.println(Arrays.toString(works.toArray()));
         return "";
     }
 
@@ -74,8 +71,8 @@ public class Homework_Scheduler {
     }
 
     public String input() {
-        try {
-            //        File file = new File("input.txt");
+//        try {
+//                    File file = new File("input.txt");
 //        StringBuilder input = new StringBuilder();
 //        try (Scanner in = new Scanner(file)) {
 //            while (in.hasNextLine()) {
@@ -83,17 +80,26 @@ public class Homework_Scheduler {
 //                input.append(i);
 //                input.append("\n");
 //            }
+//            return web.scrape();
 //        } catch (FileNotFoundException exception) {
 //            System.out.println("File not found");
 //        } catch (StringIndexOutOfBoundsException exception) {
 //            System.out.println("there was index out of bounds");
 //        }
-//        
-//        return input.toString();
-            return web.scrape();
+        try{
+            StringBuilder input = new StringBuilder();
+            Scanner in = new Scanner(System.in);
+            while (in.hasNextLine()) {
+                String i = in.nextLine();
+                input.append(i);
+                input.append("\n");
+            }
+            return input.toString();
+
+        }
         } catch (InterruptedException ex) {
             Logger.getLogger(Homework_Scheduler.class.getName()).log(Level.SEVERE, null, ex);
-        }
         return "Failure";
+        }
     }
 }
